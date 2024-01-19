@@ -3,13 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 1001",
-    "build": "next build",
+    "dev": "next dev -p 1000",
+    "build": "next build -p 1000",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.9",
     "@module-federation/nextjs-mf": "^6.0.7",
+    "graphql": "^16.8.1",
     "next": "^13.2.4",
     "react": "^18",
     "react-dom": "^18",

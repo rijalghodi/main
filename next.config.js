@@ -16,17 +16,27 @@ const nextConfig = {
     config.plugins.push(
       new NextFederationPlugin({
         name: "main",
-        filename: "static/chunks/remoteEntry.js",
+        // filename: "static/chunks/remoteEntry.js",
+        filename: `static/${isServer ? "ssr" : "chunks"}/remoteEntry.js`,
         exposes: {},
         remotes: {
-          dashboard: `dashboard@http://localhost:3001/_next/static/${
+          child: `child@http://localhost:1001/_next/static/${
             isServer ? "ssr" : "chunks"
           }/remoteEntry.js`,
+          // dashboard: `dashboard@http://localhost:3001/_next/static/${
+          //   isServer ? "ssr" : "chunks"
+          // }/remoteEntry.js`,
         },
         shared: {
           "next/router": {
             singleton: true,
             requiredVersion: false,
+          },
+          "react/jsx-runtime": {
+            singleton: true,
+            requiredVersion: false,
+            eager: false,
+            import: false,
           },
         },
       })
