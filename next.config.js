@@ -1,8 +1,4 @@
-// const nextConfig = {
-//   reactStrictMode: true,
-// };
-
-// module.exports = nextConfig;
+const CHILD_URL = process.env.CHILD_URL;
 
 // /** @type {import('next').NextConfig} */
 
@@ -20,12 +16,9 @@ const nextConfig = {
         filename: `static/${isServer ? "ssr" : "chunks"}/remoteEntry.js`,
         exposes: {},
         remotes: {
-          child: `child@http://localhost:2001/_next/static/${
+          child: `child@${CHILD_URL}/_next/static/${
             isServer ? "ssr" : "chunks"
           }/remoteEntry.js`,
-          // dashboard: `dashboard@http://localhost:3001/_next/static/${
-          //   isServer ? "ssr" : "chunks"
-          // }/remoteEntry.js`,
         },
         shared: {
           // "next/router": {
