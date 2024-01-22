@@ -20,7 +20,7 @@ const nextConfig = {
         filename: `static/${isServer ? "ssr" : "chunks"}/remoteEntry.js`,
         exposes: {},
         remotes: {
-          child: `child@http://localhost:1001/_next/static/${
+          child: `child@http://localhost:2001/_next/static/${
             isServer ? "ssr" : "chunks"
           }/remoteEntry.js`,
           // dashboard: `dashboard@http://localhost:3001/_next/static/${
@@ -28,16 +28,16 @@ const nextConfig = {
           // }/remoteEntry.js`,
         },
         shared: {
-          "next/router": {
-            singleton: true,
-            requiredVersion: false,
-          },
-          "react/jsx-runtime": {
-            singleton: true,
-            requiredVersion: false,
-            eager: false,
-            import: false,
-          },
+          // "next/router": {
+          //   singleton:  true,
+          //   requiredVersion: false,
+          // },
+          // "react/jsx-runtime": {
+          //   singleton: true,
+          //   requiredVersion: false,
+          //   eager: false,
+          //   import: false,
+          // },
         },
       })
     );
