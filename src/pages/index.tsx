@@ -12,9 +12,9 @@ import dynamic from "next/dynamic";
 //   ssr: false,
 // });
 
-// const Expose = dynamic(() => import("child/Expose"), {
-//   ssr: false,
-// });
+const Expose = dynamic(() => import("child/Expose"), {
+  ssr: false,
+});
 const PlusButton = dynamic(() => import("child/PlusButton"), {
   ssr: false,
 });
@@ -27,18 +27,31 @@ import React, { lazy } from "react";
 //     return { default: dashboard() };
 //   })
 // );
+import { signIn } from "next-auth/react";
+
+// This call would be wrapped in your form component and bound to your login or submit button
 
 export default function Home() {
+  const handleLogin = () => {
+    signIn("credentials", {
+      email: "a@a.com",
+      password: "123",
+      callbackUrl: "/dashboard", // the url to redirect to on succesful login
+    });
+  };
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24`}
     >
       <h1 className="text-xl text-center">Aplikasi Main</h1>
+      <button className="p-4 bg-lime-600 rounded-sm" onClick={handleLogin}>
+        Login
+      </button>
       {/* <div className="px-4 py-2 bg-slate-700 rounded-sm mt-4">x</div> */}
       {/* <Button />
       <Dashboard /> */}
-      <PlusButton />
-      {/* <Expose /> */}
+      {/* <PlusButton /> */}
+      <Expose />
     </main>
   );
 }
