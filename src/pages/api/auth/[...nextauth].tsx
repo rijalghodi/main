@@ -1,6 +1,7 @@
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
+import Cookies from "js-cookie";
 
 const backendURL = process.env.NEXT_PUBLIC_BACKEND_URL;
 export const authOptions: AuthOptions = {
@@ -43,24 +44,22 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    // jwt: async ({ token, user }) => {
-    //   if (user) {
-    //     token.email = "hello@gmail.com";
-    //     // token.username = user.data.auth.userName;
-    //     // token.user_type = user.data.auth.userType;
-    //     // token.accessToken = user.data.auth.token;
-    //   }
+    jwt: async ({ token, user }) => {
+      Cookies.set("accessToken", token?.accessToken as string);
 
-    //   return token;
-    // },
+      if (user) {
+        token.email = "main@gmail.com";
+        token.accessToken = "this_is_token_1234";
+      }
+
+      return token;
+    },
     session: ({ session, token, user }) => {
       if (token) {
         // session.user.email = token.email;
         // session.user.username = token.userName;
         // session.user.accessToken = token.accessToken;
-        session.user = {
-          email: "main@gmail.com",
-        };
+        session.user = token;
       }
 
       return session;

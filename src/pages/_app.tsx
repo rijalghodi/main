@@ -22,8 +22,8 @@ export default function App({
   return (
     <>
       <Head>
-        <title>Main App</title>
-        <meta name="description" content="Main App" />
+        <title>Main</title>
+        <meta name="description" content="Main" />
       </Head>
       {/* <ApolloProvider client={client}> */}
       <SessionProvider session={session}>

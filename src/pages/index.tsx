@@ -18,6 +18,7 @@ import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AppProps } from "next/app";
+import Cookies from "js-cookie";
 
 // This call would be wrapped in your form component and bound to your login or submit button
 
@@ -40,23 +41,25 @@ export default function Home(props: AppProps) {
         display: "flex",
         flexDirection: "column",
         gap: 32,
-        height: "100vh",
+        minHeight: "100vh",
         padding: 32,
         overflow: "hidden",
       }}
     >
-      <h1 className="text-xl text-center">Aplikasi Main</h1>
-      <Link href="/dashboard">Go to dashboard</Link>
+      <h1 className="text-xl text-center">Main App</h1>
+      {/* Parent must use next/link if child use it or child must im[port next/link dynamically] */}
+      {/* <Link href="/">Dashboard</Link> */}
+
       <div style={{ display: "flex", gap: 24 }}>
+        <button onClick={handleSignIn}>Sign In</button>
+        <button onClick={handleSignOut}>Sign Out</button>
+      </div>
+
+      <div>
         <p>Current Session:</p>
         <pre>{JSON.stringify(session)}</pre>
       </div>
-      <div>
-        <div style={{ display: "flex", gap: 24 }}>
-          <button onClick={handleSignIn}>Sign In</button>
-          <button onClick={handleSignOut}>Sign Out</button>
-        </div>
-      </div>
+
       <div>
         <h1>Child Content</h1>
         {/* <SessionProvider session={props.pageProps?.session}> */}

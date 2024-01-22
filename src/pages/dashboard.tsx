@@ -40,9 +40,7 @@ export default function Dashboard() {
           padding: 32,
         }}
       >
-        <h1 className="text-xl text-center">
-          Aplikasi Main - Halaman Dashboard
-        </h1>
+        <h1 className="text-xl text-center">Main App - Dashboard Page</h1>
         <pre>{JSON.stringify(session)}</pre>
         <div>
           <button
@@ -55,7 +53,6 @@ export default function Dashboard() {
             Logout
           </button>
         </div>
-        {/* <Expose /> */}
       </main>
     );
   }
