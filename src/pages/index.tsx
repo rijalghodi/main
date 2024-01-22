@@ -14,7 +14,7 @@ import React, { lazy, useState } from "react";
 //     return { default: dashboard() };
 //   })
 // );
-import { SessionProvider, signIn } from "next-auth/react";
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { AppProps } from "next/app";
@@ -22,20 +22,16 @@ import { AppProps } from "next/app";
 // This call would be wrapped in your form component and bound to your login or submit button
 
 export default function Home(props: AppProps) {
+  const session = useSession();
   const router = useRouter();
-  const handleLogin = async () => {
-    const res = await signIn("credentials", {
-      email: "a@a.com",
+  const handleSignIn = async () => {
+    signIn("credentials", {
+      email: "ahahah",
       password: "123",
-      redirect: false,
-      // callbackUrl: "localhost:2000/dashboard", // the url to redirect to on succesful login
     });
-
-    console.log("res sign in", res);
-
-    if (res?.ok) {
-      router.push("/dashboard");
-    }
+  };
+  const handleSignOut = async () => {
+    signOut();
   };
 
   return (
@@ -44,31 +40,29 @@ export default function Home(props: AppProps) {
         display: "flex",
         flexDirection: "column",
         gap: 32,
-        width: "100vw",
         height: "100vh",
         padding: 32,
+        overflow: "hidden",
       }}
     >
       <h1 className="text-xl text-center">Aplikasi Main</h1>
-      <div></div>
-      <div>
-        <button
-          style={{
-            padding: "8px 16px",
-            fontSize: 16,
-          }}
-          onClick={handleLogin}
-        >
-          Login
-        </button>
+      <Link href="/dashboard">Go to dashboard</Link>
+      <div style={{ display: "flex", gap: 24 }}>
+        <p>Current Session:</p>
+        <pre>{JSON.stringify(session)}</pre>
       </div>
       <div>
-        <h1>Content</h1>
+        <div style={{ display: "flex", gap: 24 }}>
+          <button onClick={handleSignIn}>Sign In</button>
+          <button onClick={handleSignOut}>Sign Out</button>
+        </div>
+      </div>
+      <div>
+        <h1>Child Content</h1>
         {/* <SessionProvider session={props.pageProps?.session}> */}
         <Expose />
         {/* </SessionProvider> */}
       </div>
-      <Link href="/dashboard">Go to dashboard</Link>
     </main>
   );
 }
