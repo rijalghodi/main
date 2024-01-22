@@ -8,6 +8,7 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
+import { SessionProvider } from "next-auth/react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -22,7 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="Main App" />
       </Head>
       {/* <ApolloProvider client={client}> */}
-      <Component {...pageProps} />
+      <SessionProvider session={pageProps.session}>
+        <Component {...pageProps} />
+      </SessionProvider>
       {/* </ApolloProvider> */}
     </>
   );
